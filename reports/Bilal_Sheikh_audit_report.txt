@@ -1,0 +1,67 @@
+**OFFBOARDING AUDIT REPORT**
+
+**EXECUTIVE SUMMARY:**
+
+This audit report documents the offboarding process of Mr. Bilal Sheikh from TechHub Pvt Ltd, effective on the last day of his employment. The audit verifies the successful revocation of employee access to various tools and cancellation of related licenses. The report highlights the key findings, financial impact, and compliance status.
+
+**EMPLOYEE DETAILS:**
+
+* **Name:** Bilal Sheikh
+* **Last Day of Employment:** [Insert Date]
+* **Offboarding Reason:** Resignation
+* **Contact Details:** [Employee Email: None]
+
+**SECURITY ACTIONS TAKEN:**
+
+To ensure the secure offboarding of Mr. Bilal Sheikh, the following security actions were taken:
+
+* **Tools Access Revoked:** 
+  + Google Workspace
+  + GitHub
+  + HubSpot
+  + Zoom
+  + Slack
+* **Licenses Cancelled:**
+  + Google Workspace (effective immediately)
+  + GitHub (effective immediately)
+  + HubSpot (effective immediately)
+  + Zoom (effective immediately)
+  + Slack (effective immediately)
+
+All revocations and cancellations were completed as per the set procedures to maintain the security and integrity of company data.
+
+**FINANCIAL IMPACT:**
+
+The offboarding process resulted in total monthly savings of PKR 13,500. This figure represents the cost savings from cancelling the licenses and subscriptions associated with Mr. Bilal Sheikh's access to various tools.
+
+**COMPLIANCE STATUS:**
+
+The offboarding process was completed in compliance with TechHub Pvt Ltd's policies and procedures. The revocation of access and cancellation of licenses were executed in a timely and secure manner.
+
+**RECOMMENDATIONS:**
+
+Based on the findings, no additional recommendations are required for this specific offboarding case. However, to enhance the overall security and compliance, the following recommendations are suggested:
+
+* Regular audits to ensure adherence to offboarding procedures
+* Continuous monitoring and improvement of security controls and processes
+* Quarterly reviews of compliance with relevant policies and procedures
+
+**ACTION TIMESTAMP:**
+
+The following timestamps record the completion of security actions:
+
+* 2026-06-18T01:38:24.467898
+* 2026-06-18T01:38:24.467898
+* 2026-06-18T01:38:24.467898
+* 2026-06-18T01:38:24.467898
+* 2026-06-18T01:38:24.467898
+
+The above timestamp confirms the completion of security actions as of June 18, 2026.
+
+**AUDIT CERTIFICATION:**
+
+I, [Insert Name], Compliance and Audit Lead, certify that the offboarding process for Mr. Bilal Sheikh was completed in compliance with TechHub Pvt Ltd's policies and procedures. This audit report accurately reflects the findings, security actions taken, financial impact, and compliance status.
+
+**CERTIFICATION TIMESTAMP:** 2026-06-18T01:38:24.467898
+
+**SIGNATURE:** [Insert Signature]

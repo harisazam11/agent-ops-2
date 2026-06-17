@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "from": "hr@techhub.com.pk",
+    "to": "all-staff@techhub.com.pk",
+    "subject": "Farewell: Ahmed Raza — Last Day 28 June 2026",
+    "body": "Dear Team,\n\nPlease join us in wishing Ahmed Raza well as he moves on to a new opportunity. Ahmed's last day with TechHub Pvt Ltd will be Friday, 28 June 2026.\n\nWe will hold a brief farewell gathering in the cafeteria at 4:00 PM on his last day. Kindly confirm your attendance with HR.\n\nThank you,\nHR Team\nTechHub Pvt Ltd",
+    "date": "2026-06-10T09:15:00+05:00"
+  },
+  {
+    "id": 2,
+    "from": "hr@techhub.com.pk",
+    "to": "engineering@techhub.com.pk",
+    "subject": "Offboarding Checklist — Sara Khan",
+    "body": "Hi Engineering Leads,\n\nSara Khan will no longer be with us after 15 July 2026. Please ensure the following offboarding steps are completed:\n\n1. Revoke GitHub and Jira access by EOD on her last day\n2. Collect company laptop and security badge\n3. Transfer ownership of active sprint tickets\n\nSara's manager should schedule an exit interview with HR by 10 July.\n\nRegards,\nFatima Malik\nHuman Resources\nTechHub Pvt Ltd",
+    "date": "2026-06-12T11:30:00+05:00"
+  },
+  {
+    "id": 3,
+    "from": "hr@techhub.com.pk",
+    "to": "all-staff@techhub.com.pk",
+    "subject": "Team Update: Bilal Sheikh Departure",
+    "body": "Dear Colleagues,\n\nThis is to inform you that Bilal Sheikh has resigned from his role as Senior DevOps Engineer. His last day at TechHub Pvt Ltd will be 5 July 2026.\n\nBilal has been instrumental in stabilizing our CI/CD pipelines. We appreciate his contributions and wish him success in his next chapter.\n\nA farewell lunch is planned for 4 July at 1:00 PM in Conference Room B.\n\nBest regards,\nHR Department\nTechHub Pvt Ltd",
+    "date": "2026-06-14T08:45:00+05:00"
+  },
+  {
+    "id": 4,
+    "from": "hr@techhub.com.pk",
+    "to": "managers@techhub.com.pk",
+    "subject": "Reminder: Q2 Performance Review Cycle Opens Monday",
+    "body": "Hi Managers,\n\nThe Q2 2026 performance review cycle opens on Monday, 16 June. Please complete self-assessments for your direct reports by 30 June.\n\nReview templates are available on the HR portal. Contact Fatima Malik if you need access or have questions about the new competency framework.\n\nThank you,\nHR Team\nTechHub Pvt Ltd",
+    "date": "2026-06-13T14:00:00+05:00"
+  },
+  {
+    "id": 5,
+    "from": "hr@techhub.com.pk",
+    "to": "all-staff@techhub.com.pk",
+    "subject": "Updated Remote Work Policy — Effective 1 July",
+    "body": "Dear Team,\n\nTechHub Pvt Ltd is updating its hybrid work policy effective 1 July 2026. Employees may work remotely up to two days per week with prior manager approval.\n\nPlease review the full policy document attached to this email and acknowledge receipt via the HR portal by 25 June.\n\nFor questions, reach out to Ahmed Raza in HR Operations (note: Ahmed will transition responsibilities to Sara Khan's replacement before his departure).\n\nRegards,\nHuman Resources\nTechHub Pvt Ltd",
+    "date": "2026-06-11T10:20:00+05:00"
+  },
+  {
+    "id": 6,
+    "from": "hr@techhub.pk",
+    "to": "all-staff@techhub.com.pk",
+    "subject": "Welcome Zara Ahmed — New Frontend Developer",
+    "body": "Please welcome Zara Ahmed who is joining as Frontend Developer on January 10th. Please provision all required tools and access.",
+    "date": "2024-12-31"
+  },
+  {
+    "id": 7,
+    "from": "hr@techhub.pk",
+    "to": "all-staff@techhub.com.pk",
+    "subject": "New Hire — Usman Ali, Data Analyst",
+    "body": "Usman Ali is joining as Data Analyst on January 15th. Kindly set up his accounts and tools.",
+    "date": "2025-01-01"
+  }
+]

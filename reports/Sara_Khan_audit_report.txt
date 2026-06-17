@@ -1,0 +1,58 @@
+**Audit Report: Offboarding Case - Sara Khan**
+
+**Date:** June 18, 2026
+**Prepared by:** Compliance and Audit Team, TechHub Pvt Ltd
+**Approved by:** [Authorized Signature]
+
+**EXECUTIVE SUMMARY**
+
+This audit report documents the offboarding process of Sara Khan from TechHub Pvt Ltd, effective June 18, 2026. The offboarding was initiated in compliance with the company's policies and procedures to ensure secure termination of access and accounts. The report highlights the key security actions taken, financial impact, and compliance status.
+
+**EMPLOYEE DETAILS**
+
+* Employee Name: Sara Khan
+* Employee Email: null
+* Offboarding Reason: The email explicitly mentions offboarding steps and an exit interview, indicating that Sara Khan is leaving the company.
+
+**SECURITY ACTIONS TAKEN**
+
+To ensure secure offboarding of Sara Khan, the following actions were taken:
+
+1. **Tools Access Revoked**:
+	* Google Workspace (access revoked on PKR 0.00/month)
+	* Slack (access revoked on PKR 0.00/month)
+	* Figma (access revoked on PKR 0.00/month)
+	* Notion (access revoked on PKR 0.00/month)
+	* Trello (access revoked on PKR 0.00/month)
+2. **Licenses Cancelled**:
+	* Google Workspace (cancelled on PKR 0.00/month)
+	* Slack (cancelled on PKR 0.00/month)
+	* Figma (cancelled on PKR 0.00/month)
+	* Notion (cancelled on PKR 0.00/month)
+	* Trello (cancelled on PKR 0.00/month)
+
+**FINANCIAL IMPACT**
+
+The total monthly savings from revoking access and cancelling licenses for Sara Khan are:
+
+* Total Monthly Savings: PKR 10,200
+* Assumptions:
+	+ Average monthly costs for each tool are based on existing contracts and agreements.
+	+ Savings are calculated based on the assumption that the employee was using all the tools mentioned.
+
+**COMPLIANCE STATUS**
+
+The offboarding process for Sara Khan was completed in accordance with TechHub Pvt Ltd's policies and procedures, ensuring that all necessary security actions were taken.
+
+**RECOMMENDATIONS**
+
+1. Review and update the offboarding process to ensure it remains compliant with industry standards and regulatory requirements.
+2. Conduct a thorough review of all offboarding cases to ensure that necessary security actions are taken and financial impacts are accurately calculated.
+3. Consider implementing a centralized system for tracking offboarding and access revocation to improve efficiency and reduce the risk of non-compliance.
+
+**ACTION TIMESTAMP**
+
+The following timestamps were recorded during the offboarding process:
+
+* 2026-06-18T01:55:16.126557 (initial action)
+* 2026-06-18T01:55:16.126557 (subsequent actions)

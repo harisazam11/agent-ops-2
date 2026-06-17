@@ -1,0 +1,71 @@
+**TECHHUB PVT LTD AUDIT REPORT**
+
+**AUDIT REFERENCE NUMBER:** THUB-ARA-2026-06-001
+**AUDIT DATE:** June 18, 2026
+**AUDIT PERFORMED BY:** [Compliance and Audit Officer, TechHub Pvt Ltd]
+
+**EXECUTIVE SUMMARY**
+
+This audit report documents the offboarding of Mr. Ahmed Raza, an employee who provided a farewell message indicating a new opportunity. The audit focused on ensuring the timely revocation of access to company tools and cancellation of associated subscriptions, as well as evaluating the financial impact of the offboarding process.
+
+**EMPLOYEE DETAILS**
+
+Employee Name: Ahmed Raza
+
+Employee Email: N/A
+
+Title: N/A
+
+Employee Id: N/A
+
+**SECURITY ACTIONS TAKEN**
+
+As part of the offboarding process, the following security actions were taken:
+
+1. **Tool Access Revocation**: Access to the following tools was revoked:
+	* Google Workspace on [2024-06-18T01:55:14.148885]
+	* Slack on [2024-06-18T01:55:14.148885]
+	* GitHub on [2024-06-18T01:55:14.148885]
+	* Notion on [2024-06-18T01:55:14.148885]
+	* Zoom on [2024-06-18T01:55:14.148885]
+2. **License Cancellation**: Licenses were cancelled for the following tools:
+	* Google Workspace
+	* Slack
+	* GitHub
+	* Notion
+	* Zoom
+
+**FINANCIAL IMPACT**
+
+Based on the offboarding of Mr. Ahmed Raza, the company is expected to save PKR 10,500 per month.
+
+**COMPLIANCE STATUS**
+
+The offboarding process was conducted in accordance with TechHub Pvt Ltd's Offboarding Policy, which ensures that all employees' access to company tools and subscriptions are properly revoked and licenses are cancelled.
+
+**RECOMMENDATIONS**
+
+1. The offboarding process for Mr. Ahmed Raza was completed in a timely manner, ensuring minimal disruption to the company's operations.
+2. The revocation of tool access and cancellation of licenses are in line with TechHub Pvt Ltd's security policies.
+3. Consider conducting regular audits to ensure that all employees' access and subscriptions are properly revoked and licenses are cancelled.
+
+**ATTACHMENTS**
+
+None
+
+**APPROVAL**
+
+This audit report has been reviewed and approved by:
+
+[Name]
+Chief Financial Officer, TechHub Pvt Ltd
+[Signature]
+[Date]
+
+**AUDITOR'S DECLARATION**
+
+I, [Name], hereby declare that the information contained in this audit report is accurate and true to the best of my knowledge.
+
+[Signature]
+Compliance and Audit Officer, TechHub Pvt Ltd
+[Date]
