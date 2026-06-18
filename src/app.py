@@ -4,7 +4,6 @@ Run: streamlit run src/app.py
 """
 
 import sys, os
-import pandas as pd
 sys.path.insert(0, os.path.dirname(__file__))
 
 from datetime import datetime
@@ -24,246 +23,62 @@ REPORTS_DIR = os.path.join(os.path.dirname(__file__), "..", "reports")
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
-html, body, [class*="css"] {
-    font-family: 'Inter', sans-serif !important;
-    color: #111827 !important;
-}
+html, body, [class*="css"] { font-family: 'Inter', sans-serif !important; color: #111827 !important; }
 .stApp { background: #F3F4F6; }
 #MainMenu, footer, header { visibility: hidden; }
 .block-container { padding: 1.5rem 2rem; max-width: 1100px; }
-
-/* ── Sidebar ── */
-[data-testid="stSidebar"] {
-    background: #1E293B !important;
-}
-[data-testid="stSidebar"] * {
-    color: #E2E8F0 !important;
-}
-[data-testid="stSidebar"] .stMetric label {
-    font-size: 0.72rem !important;
-    color: #94A3B8 !important;
-}
-[data-testid="stSidebar"] .stMetric [data-testid="stMetricValue"] {
-    font-size: 1.5rem !important;
-    font-weight: 800 !important;
-    color: #F8FAFC !important;
-}
-[data-testid="stSidebar"] hr {
-    border-color: #334155 !important;
-}
-
-/* ── Spinner fix ── */
-[data-testid="stSpinner"] {
-    background: #FFFFFF !important;
-    border-radius: 8px !important;
-    padding: 0.5rem 1rem !important;
-    border: 1px solid #E5E7EB !important;
-}
-[data-testid="stSpinner"] * {
-    color: #374151 !important;
-}
-[data-testid="stSpinner"] > div {
-    background: #FFFFFF !important;
-}
-.stSpinner > div {
-    border-top-color: #2563EB !important;
-}
-
-/* ── Top bar ── */
-.top-bar {
-    background: #FFFFFF;
-    border: 1px solid #E5E7EB;
-    border-radius: 12px;
-    padding: 1rem 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1.25rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-}
+[data-testid="stSidebar"] { background: #1E293B !important; }
+[data-testid="stSidebar"] * { color: #E2E8F0 !important; }
+[data-testid="stSidebar"] .stMetric label { font-size: 0.72rem !important; color: #94A3B8 !important; }
+[data-testid="stSidebar"] .stMetric [data-testid="stMetricValue"] { font-size: 1.5rem !important; font-weight: 800 !important; color: #F8FAFC !important; }
+[data-testid="stSidebar"] hr { border-color: #334155 !important; }
+.top-bar { background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 12px; padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
 .brand-name { font-size: 1.1rem; font-weight: 800; color: #111827; letter-spacing: -0.3px; }
-.brand-sub  { font-size: 0.73rem; color: #6B7280; margin-top: 2px; }
-.live-pill  {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: #ECFDF5; color: #065F46;
-    border: 1px solid #6EE7B7; border-radius: 20px;
-    padding: 5px 14px; font-size: 0.78rem; font-weight: 600;
-}
-.live-dot {
-    width: 7px; height: 7px; background: #10B981; border-radius: 50%;
-    animation: pulse 2s ease-in-out infinite;
-}
+.brand-sub { font-size: 0.73rem; color: #6B7280; margin-top: 2px; }
+.live-pill { display: inline-flex; align-items: center; gap: 6px; background: #ECFDF5; color: #065F46; border: 1px solid #6EE7B7; border-radius: 20px; padding: 5px 14px; font-size: 0.78rem; font-weight: 600; }
+.live-dot { width: 7px; height: 7px; background: #10B981; border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
-/* ── KPI cards ── */
-.kpi-card {
-    background: #FFFFFF;
-    border: 1px solid #E5E7EB;
-    border-radius: 12px;
-    padding: 1.25rem 1.5rem;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-}
-.kpi-label {
-    font-size: 0.7rem; font-weight: 600; color: #6B7280;
-    text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px;
-}
+.kpi-card { background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 12px; padding: 1.25rem 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+.kpi-label { font-size: 0.7rem; font-weight: 600; color: #6B7280; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 8px; }
 .kpi-val { font-size: 2rem; font-weight: 800; letter-spacing: -1px; line-height: 1; }
 .kpi-neutral { color: #111827; }
-.kpi-danger  { color: #DC2626; }
+.kpi-danger { color: #DC2626; }
 .kpi-success { color: #059669; }
-.kpi-info    { color: #2563EB; }
-
-/* ── Buttons ── */
-.stButton > button {
-    border-radius: 8px !important;
-    font-weight: 600 !important;
-    font-size: 0.9rem !important;
-    padding: 0.6rem 1.4rem !important;
-    transition: all 0.15s !important;
-}
-.stButton > button[kind="primary"] {
-    background: #2563EB !important;
-    color: #fff !important;
-    border: none !important;
-    box-shadow: 0 2px 6px rgba(37,99,235,0.3) !important;
-}
+.kpi-info { color: #2563EB; }
+.stButton > button { border-radius: 8px !important; font-weight: 600 !important; font-size: 0.9rem !important; padding: 0.6rem 1.4rem !important; }
+.stButton > button[kind="primary"] { background: #2563EB !important; color: #fff !important; border: none !important; box-shadow: 0 2px 6px rgba(37,99,235,0.3) !important; }
 .stButton > button[kind="primary"]:hover { background: #1D4ED8 !important; }
-.stButton > button[kind="secondary"] {
-    background: #FFFFFF !important;
-    color: #374151 !important;
-    border: 1px solid #D1D5DB !important;
-}
-
-/* ── Banners ── */
-.banner-info {
-    background: #EFF6FF; border: 1px solid #BFDBFE;
-    border-left: 4px solid #2563EB; border-radius: 8px;
-    padding: 0.75rem 1rem; margin-bottom: 0.75rem;
-    font-size: 0.85rem; color: #1E40AF;
-}
-.banner-alert {
-    background: #FEF2F2; border: 1px solid #FECACA;
-    border-left: 4px solid #EF4444; border-radius: 8px;
-    padding: 0.8rem 1rem; margin-bottom: 0.5rem;
-    font-size: 0.875rem; font-weight: 600; color: #991B1B;
-}
-.banner-ok {
-    background: #F0FDF4; border: 1px solid #BBF7D0;
-    border-left: 4px solid #16A34A; border-radius: 8px;
-    padding: 0.8rem 1rem; margin-bottom: 0.75rem;
-    font-size: 0.875rem; font-weight: 500; color: #166534;
-}
-
-/* ── Section heading ── */
-.sec-head {
-    font-size: 0.95rem; font-weight: 700; color: #111827;
-    margin: 1rem 0 0.6rem 0;
-}
-
-/* ── Summary grid ── */
+.stButton > button[kind="secondary"] { background: #FFFFFF !important; color: #374151 !important; border: 1px solid #D1D5DB !important; }
+.banner-info { background: #EFF6FF; border: 1px solid #BFDBFE; border-left: 4px solid #2563EB; border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 0.75rem; font-size: 0.85rem; color: #1E40AF; }
+.banner-alert { background: #FEF2F2; border: 1px solid #FECACA; border-left: 4px solid #EF4444; border-radius: 8px; padding: 0.8rem 1rem; margin-bottom: 0.5rem; font-size: 0.875rem; font-weight: 600; color: #991B1B; }
+.banner-ok { background: #F0FDF4; border: 1px solid #BBF7D0; border-left: 4px solid #16A34A; border-radius: 8px; padding: 0.8rem 1rem; margin-bottom: 0.75rem; font-size: 0.875rem; font-weight: 500; color: #166534; }
+.sec-head { font-size: 0.95rem; font-weight: 700; color: #111827; margin: 1rem 0 0.6rem 0; }
 .sum-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.75rem; margin: 1rem 0; }
-.sum-box {
-    background: #FFFFFF; border: 1px solid #E5E7EB;
-    border-radius: 10px; padding: 1rem 1.25rem; text-align: center;
-}
+.sum-box { background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 10px; padding: 1rem 1.25rem; text-align: center; }
 .sum-label { font-size: 0.68rem; color: #6B7280; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
-.sum-val   { font-size: 1.5rem; font-weight: 800; margin-top: 4px; }
-
-/* ── Expander ── */
-[data-testid="stExpander"] {
-    border: 1px solid #E5E7EB !important;
-    border-radius: 10px !important;
-    background: #FFFFFF !important;
-    margin-bottom: 0.5rem !important;
-}
-[data-testid="stExpander"] > div {
-    background: #FFFFFF !important;
-}
-[data-testid="stExpander"] details {
-    background: #FFFFFF !important;
-}
-[data-testid="stExpander"] summary {
-    color: #111827 !important;
-    font-weight: 600 !important;
-    background: #FFFFFF !important;
-}
-[data-testid="stExpander"] summary:hover {
-    background: #F9FAFB !important;
-}
-div[data-testid="stExpander"] div[role="button"] {
-    background: #FFFFFF !important;
-    color: #111827 !important;
-}
-
-/* ── Tabs ── */
-.stTabs [data-baseweb="tab-list"] {
-    background: #F3F4F6; border-radius: 8px; padding: 3px; gap: 2px;
-}
-.stTabs [data-baseweb="tab"] {
-    border-radius: 6px; font-size: 0.84rem;
-    font-weight: 500; color: #6B7280 !important;
-}
-.stTabs [aria-selected="true"] {
-    background: #FFFFFF !important;
-    color: #111827 !important;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08) !important;
-}
-
-/* ── Dataframe ── */
-[data-testid="stDataFrame"] {
-    border-radius: 8px;
-    overflow: hidden;
-    border: 1px solid #E5E7EB !important;
-    background: #FFFFFF !important;
-}
-[data-testid="stDataFrame"] * {
-    color: #111827 !important;
-}
-[data-testid="stDataFrame"] th {
-    background: #F9FAFB !important;
-    color: #6B7280 !important;
-    font-weight: 600 !important;
-}
-[data-testid="stDataFrame"] td {
-    background: #FFFFFF !important;
-    color: #111827 !important;
-}
-[data-testid="stDataFrame"] canvas {
-    filter: invert(0) !important;
-}
-.dvn-scroller { background: #FFFFFF !important; }
-.dvn-scroller * { color: #111827 !important; }
-iframe[title="st_aggrid"] { background: #FFFFFF !important; }
-
-/* ── Status steps ── */
-.step-box {
-    background: #FFFFFF;
-    border: 1px solid #E5E7EB;
-    border-radius: 8px;
-    padding: 0.65rem 1rem;
-    margin-bottom: 0.4rem;
-    font-size: 0.85rem;
-    color: #374151;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-.step-box.running {
-    border-left: 3px solid #2563EB;
-    color: #1D4ED8;
-    background: #EFF6FF;
-}
-.step-box.done {
-    border-left: 3px solid #16A34A;
-    color: #166534;
-    background: #F0FDF4;
-}
+.sum-val { font-size: 1.5rem; font-weight: 800; margin-top: 4px; }
+.step-box { background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 8px; padding: 0.65rem 1rem; margin-bottom: 0.4rem; font-size: 0.85rem; color: #374151; }
+.step-running { border-left: 3px solid #2563EB; color: #1D4ED8; background: #EFF6FF; }
+.step-done { border-left: 3px solid #16A34A; color: #166534; background: #F0FDF4; }
+.tool-row { background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 8px; padding: 0.6rem 1rem; margin-bottom: 0.4rem; font-size: 0.85rem; color: #111827; display: flex; justify-content: space-between; align-items: center; }
+.tool-name { font-weight: 600; color: #111827; }
+.tool-cost { color: #6B7280; font-size: 0.8rem; }
+.tool-badge-risk { background: #FEF2F2; color: #DC2626; border: 1px solid #FECACA; border-radius: 6px; padding: 2px 8px; font-size: 0.72rem; font-weight: 700; }
+.tool-badge-done { background: #F0FDF4; color: #16A34A; border: 1px solid #BBF7D0; border-radius: 6px; padding: 2px 8px; font-size: 0.72rem; font-weight: 700; }
+.total-row { background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 8px; padding: 0.6rem 1rem; margin-top: 0.5rem; font-size: 0.85rem; font-weight: 700; color: #111827; display: flex; justify-content: space-between; }
+.reg-row { background: #FFFFFF; border: 1px solid #E5E7EB; border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 0.4rem; font-size: 0.84rem; color: #374151; }
+.reg-name { font-weight: 700; color: #111827; }
+.reg-sub { color: #6B7280; font-size: 0.78rem; margin-top: 2px; }
+[data-testid="stExpander"] { border: 1px solid #E5E7EB !important; border-radius: 10px !important; background: #FFFFFF !important; margin-bottom: 0.5rem !important; }
+[data-testid="stExpander"] > div { background: #FFFFFF !important; }
+[data-testid="stExpander"] summary { color: #111827 !important; font-weight: 600 !important; background: #FFFFFF !important; }
+.stTabs [data-baseweb="tab-list"] { background: #F3F4F6; border-radius: 8px; padding: 3px; gap: 2px; }
+.stTabs [data-baseweb="tab"] { border-radius: 6px; font-size: 0.84rem; font-weight: 500; color: #6B7280 !important; }
+.stTabs [aria-selected="true"] { background: #FFFFFF !important; color: #111827 !important; box-shadow: 0 1px 3px rgba(0,0,0,0.08) !important; }
 </style>
 """, unsafe_allow_html=True)
 
 
-# ── Helpers ───────────────────────────────────────────────────────────────────
 def _resolve_email(signal):
     e = signal.get("employee_email")
     if e and isinstance(e, str) and e in EMPLOYEE_DB:
@@ -289,14 +104,17 @@ def _dedup_signals(signals):
             deduped.append(sig)
     return deduped
 
+def step(msg, kind="running"):
+    cls = "step-running" if kind == "running" else "step-done"
+    icon = "⏳" if kind == "running" else "✓"
+    st.markdown(f'<div class="step-box {cls}">{icon} &nbsp; {msg}</div>', unsafe_allow_html=True)
 
-# ── Session state ─────────────────────────────────────────────────────────────
+
 for k, v in [("sig_count", 0), ("pkr_saved", 0), ("act_count", 0)]:
     if k not in st.session_state:
         st.session_state[k] = v
 
 
-# ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
     st.markdown("## 🛡️ OpsAgent")
     st.markdown("<span style='color:#94A3B8;font-size:0.8rem'>Autonomous Operations Monitor</span>", unsafe_allow_html=True)
@@ -313,7 +131,6 @@ with st.sidebar:
     st.markdown("<span style='color:#64748B;font-size:0.75rem'>Powered by Groq · Llama 3.1</span>", unsafe_allow_html=True)
 
 
-# ── Top bar ───────────────────────────────────────────────────────────────────
 st.markdown("""
 <div class="top-bar">
   <div>
@@ -325,7 +142,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# ── KPI cards ─────────────────────────────────────────────────────────────────
 kpi1, kpi2, kpi3 = st.columns(3)
 sig_ph  = kpi1.empty()
 save_ph = kpi2.empty()
@@ -342,8 +158,6 @@ def render_kpis(s, p, a):
 render_kpis(st.session_state.sig_count, st.session_state.pkr_saved, st.session_state.act_count)
 st.write("")
 
-
-# ── Scan + Reset ──────────────────────────────────────────────────────────────
 st.markdown('<div class="banner-info">ℹ️ &nbsp; Click <b>Scan</b> to analyse HR emails, detect offboarding signals, and execute security actions automatically.</div>', unsafe_allow_html=True)
 
 col1, col2 = st.columns([5, 1])
@@ -361,18 +175,16 @@ if reset_clicked:
 st.divider()
 
 
-# ── Pipeline ──────────────────────────────────────────────────────────────────
 if scan_clicked:
     try:
-        # Step indicators instead of spinners
-        st.markdown('<div class="step-box running">📬 &nbsp; Connecting to email monitor...</div>', unsafe_allow_html=True)
+        step("Connecting to email monitor...", "running")
         emails = load_emails()
-        st.markdown(f'<div class="step-box done">✓ &nbsp; Loaded {len(emails)} emails from inbox</div>', unsafe_allow_html=True)
+        step(f"Loaded {len(emails)} emails from inbox", "done")
 
-        st.markdown('<div class="step-box running">🔍 &nbsp; Analysing emails for HR signals...</div>', unsafe_allow_html=True)
+        step("Analysing emails for HR signals...", "running")
         signals = detect_signals(emails)
         signals = _dedup_signals(signals)
-        st.markdown(f'<div class="step-box done">✓ &nbsp; Analysis complete — {len(signals)} offboarding signal(s) detected</div>', unsafe_allow_html=True)
+        step(f"Analysis complete — {len(signals)} offboarding signal(s) detected", "done")
 
         st.session_state.sig_count = len(signals)
         render_kpis(len(signals), st.session_state.pkr_saved, st.session_state.act_count)
@@ -393,58 +205,76 @@ if scan_clicked:
 
                 st.markdown(f'<div class="sec-head">👤 Processing: {name}</div>', unsafe_allow_html=True)
 
-                # Map access
                 try:
-                    st.markdown(f'<div class="step-box running">🗺️ &nbsp; Mapping SaaS access for {name}...</div>', unsafe_allow_html=True)
+                    step(f"Mapping SaaS access for {name}...", "running")
                     access = map_access(email)
-                    st.markdown(f'<div class="step-box done">✓ &nbsp; {len(access["tools"])} tools mapped — ₨{access["total_monthly_cost_pkr"]:,} at risk</div>', unsafe_allow_html=True)
+                    step(f"{len(access['tools'])} tools mapped — ₨{access['total_monthly_cost_pkr']:,} at risk", "done")
                 except Exception as e:
                     st.error(f"Could not map access for {name}: {e}")
                     continue
 
-              with st.expander(f"🔧  {len(access['tools'])} tools at risk — {name}", expanded=True):
-    for d in access["tool_details"]:
-        st.markdown(f"🔴 **{d['tool_name']}** — ₨ {d['monthly_cost_pkr']:,}/month — ⚠️ Active")
-    st.markdown(f"---\n**Total exposure: ₨ {access['total_monthly_cost_pkr']:,} / month**")
+                with st.expander(f"🔧  {len(access['tools'])} tools at risk — {name}", expanded=True):
+                    for d in access["tool_details"]:
+                        st.markdown(f"""
+                        <div class="tool-row">
+                            <span class="tool-name">{d['tool_name']}</span>
+                            <span>
+                                <span class="tool-cost">₨ {d['monthly_cost_pkr']:,}/mo</span>
+                                &nbsp;&nbsp;
+                                <span class="tool-badge-risk">⚠ Active</span>
+                            </span>
+                        </div>""", unsafe_allow_html=True)
+                    st.markdown(f"""
+                    <div class="total-row">
+                        <span>Total Exposure</span>
+                        <span>₨ {access['total_monthly_cost_pkr']:,} / month</span>
+                    </div>""", unsafe_allow_html=True)
 
-    
-                # Execute actions
                 try:
-                    st.markdown(f'<div class="step-box running">⚡ &nbsp; Revoking access and cancelling licenses for {name}...</div>', unsafe_allow_html=True)
+                    step(f"Revoking access and cancelling licenses for {name}...", "running")
                     actions = execute_actions(access)
-                    st.markdown(f'<div class="step-box done">✓ &nbsp; {len(actions["actions_taken"])} actions executed — ₨{actions["total_saved_pkr"]:,}/month saved</div>', unsafe_allow_html=True)
+                    step(f"{len(actions['actions_taken'])} actions executed — ₨{actions['total_saved_pkr']:,}/month saved", "done")
                 except Exception as e:
                     st.error(f"Could not execute actions for {name}: {e}")
                     continue
 
-               with st.expander(f"✅  {len(actions['actions_taken'])} actions completed — {name}", expanded=False):
-    for a in actions["actions_taken"]:
-        st.markdown(f"✅ **{a['tool']}** — Access revoked · License cancelled — saving ₨ {a['monthly_saving_pkr']:,}/month")
-    st.markdown(f"---\n**Total saved: ₨ {actions['total_saved_pkr']:,} / month**")
-
+                with st.expander(f"✅  {len(actions['actions_taken'])} actions completed — {name}", expanded=False):
+                    for a in actions["actions_taken"]:
+                        st.markdown(f"""
+                        <div class="tool-row">
+                            <span class="tool-name">{a['tool']}</span>
+                            <span>
+                                <span class="tool-cost">saving ₨ {a['monthly_saving_pkr']:,}/mo</span>
+                                &nbsp;&nbsp;
+                                <span class="tool-badge-done">✓ Done</span>
+                            </span>
+                        </div>""", unsafe_allow_html=True)
+                    st.markdown(f"""
+                    <div class="total-row">
+                        <span>Total Saved</span>
+                        <span>₨ {actions['total_saved_pkr']:,} / month</span>
+                    </div>""", unsafe_allow_html=True)
 
                 total_saved += actions["total_saved_pkr"]
                 total_acts  += len(actions["actions_taken"])
 
-                # Audit report
                 try:
-                    st.markdown('<div class="step-box running">📄 &nbsp; Generating compliance audit report...</div>', unsafe_allow_html=True)
+                    step("Generating compliance audit report...", "running")
                     report = generate_report(sig, access, actions)
                     os.makedirs(REPORTS_DIR, exist_ok=True)
                     rpath = os.path.join(REPORTS_DIR, f"{name.replace(' ','_')}_audit_report.txt")
                     with open(rpath, "w", encoding="utf-8") as f:
                         f.write(report)
-                    st.markdown('<div class="step-box done">✓ &nbsp; Audit report generated and saved</div>', unsafe_allow_html=True)
+                    step("Audit report generated and saved", "done")
                     with st.expander("📄  Compliance Audit Report", expanded=False):
                         st.code(report, language=None)
                 except Exception as e:
                     st.error(f"Audit report failed for {name}: {e}")
 
-                # Stakeholder emails
                 try:
-                    st.markdown('<div class="step-box running">📧 &nbsp; Drafting stakeholder notifications...</div>', unsafe_allow_html=True)
+                    step("Drafting stakeholder notifications...", "running")
                     s_emails = generate_stakeholder_emails(sig, actions)
-                    st.markdown('<div class="step-box done">✓ &nbsp; Notifications drafted for IT, Finance and HR teams</div>', unsafe_allow_html=True)
+                    step("Notifications drafted for IT, Finance and HR teams", "done")
                     with st.expander("📧  Stakeholder Notifications", expanded=False):
                         t1, t2, t3 = st.tabs(["IT Team", "Finance Team", "HR Team"])
                         with t1: st.code(s_emails["it_email"], language=None)
@@ -455,26 +285,15 @@ if scan_clicked:
 
                 st.divider()
 
-            # Update KPIs
             st.session_state.pkr_saved += total_saved
             st.session_state.act_count += total_acts
             render_kpis(len(signals), st.session_state.pkr_saved, st.session_state.act_count)
 
-            # Final summary
             st.markdown(f"""
             <div class="sum-grid">
-              <div class="sum-box">
-                <div class="sum-label">Employees Processed</div>
-                <div class="sum-val" style="color:#DC2626">{len(signals)}</div>
-              </div>
-              <div class="sum-box">
-                <div class="sum-label">Monthly Savings</div>
-                <div class="sum-val" style="color:#059669">₨{total_saved:,}</div>
-              </div>
-              <div class="sum-box">
-                <div class="sum-label">Actions Executed</div>
-                <div class="sum-val" style="color:#2563EB">{total_acts}</div>
-              </div>
+              <div class="sum-box"><div class="sum-label">Employees Processed</div><div class="sum-val" style="color:#DC2626">{len(signals)}</div></div>
+              <div class="sum-box"><div class="sum-label">Monthly Savings</div><div class="sum-val" style="color:#059669">₨{total_saved:,}</div></div>
+              <div class="sum-box"><div class="sum-label">Actions Executed</div><div class="sum-val" style="color:#2563EB">{total_acts}</div></div>
             </div>
             <div class="banner-ok">✅ &nbsp; Pipeline complete — all offboarding actions executed and compliance reports saved.</div>
             """, unsafe_allow_html=True)
@@ -483,22 +302,19 @@ if scan_clicked:
         st.error(f"Pipeline failed: {e}. Check that your GROQ_API_KEY is set in Streamlit secrets.")
 
 
-# ── Employee Registry ─────────────────────────────────────────────────────────
 st.markdown('<div class="sec-head" style="margin-top:1.5rem">👥 Active Employee Registry</div>', unsafe_allow_html=True)
 st.caption("All employees currently monitored by OpsAgent with SaaS tool exposure and monthly cost.")
 
 try:
-    rows = []
     for emp_email, tools in EMPLOYEE_DB.items():
         cost = sum(SAAS_REGISTRY[t] for t in tools)
-        rows.append({
-            "Name": _name_from_email(emp_email),
-            "Email": emp_email,
-            "Tools": ", ".join(tools),
-            "Monthly Cost": f"₨ {cost:,}",
-        })
-    for row in rows:
-    st.markdown(f"👤 **{row['Name']}** &nbsp;·&nbsp; {row['Email']} &nbsp;·&nbsp; {row['Tools']} &nbsp;·&nbsp; {row['Monthly Cost']}")
+        name = _name_from_email(emp_email)
+        tools_str = ", ".join(tools)
+        st.markdown(f"""
+        <div class="reg-row">
+            <div class="reg-name">👤 {name}</div>
+            <div class="reg-sub">{emp_email} &nbsp;·&nbsp; {tools_str} &nbsp;·&nbsp; ₨ {cost:,}/month</div>
+        </div>""", unsafe_allow_html=True)
 except Exception as e:
     st.error(f"Could not load registry: {e}")
 
