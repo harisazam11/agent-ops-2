@@ -1,0 +1,20 @@
+[
+  {
+    "id": "001",
+    "subject": "Bilal Sheikh Resignation Accepted",
+    "from": "hr@techhub.pk",
+    "body": "This is to inform all departments that Bilal Sheikh has resigned. His last day is January 5th. Please begin offboarding procedures immediately."
+  },
+  {
+    "id": "002",
+    "subject": "Fatima Malik - End of Contract",
+    "from": "hr@techhub.pk",
+    "body": "Fatima Malik contract has ended as of today. Kindly revoke all tool access and cancel subscriptions."
+  },
+  {
+    "id": "003",
+    "subject": "New Office Chairs Delivered",
+    "from": "admin@techhub.pk",
+    "body": "New office furniture has been delivered to the 3rd floor."
+  }
+]
