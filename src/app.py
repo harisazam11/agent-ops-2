@@ -407,7 +407,7 @@ if scan_clicked:
                         {"Tool": d["tool_name"], "Monthly Cost": f"₨ {d['monthly_cost_pkr']:,}", "Status": "⚠️ Active"}
                         for d in access["tool_details"]
                     ])
-                    st.dataframe(risk_df, use_container_width=True, hide_index=True)
+                    st.table(risk_df)
                     st.markdown(f"**Total exposure: ₨ {access['total_monthly_cost_pkr']:,} / month**")
 
                 # Execute actions
@@ -428,7 +428,7 @@ if scan_clicked:
                         }
                         for a in actions["actions_taken"]
                     ])
-                    st.dataframe(done_df, use_container_width=True, hide_index=True)
+                    st.table(done_df)
                     st.markdown(f"**Total saved: ₨ {actions['total_saved_pkr']:,} / month**")
 
                 total_saved += actions["total_saved_pkr"]
@@ -505,7 +505,7 @@ try:
             "Tools": ", ".join(tools),
             "Monthly Cost": f"₨ {cost:,}",
         })
-    st.dataframe(rows, use_container_width=True, hide_index=True)
+    st.table(rows)
 except Exception as e:
     st.error(f"Could not load registry: {e}")
 
