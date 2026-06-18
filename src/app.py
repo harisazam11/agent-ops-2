@@ -212,13 +212,29 @@ div[data-testid="stExpander"] div[role="button"] {
 
 /* ── Dataframe ── */
 [data-testid="stDataFrame"] {
-    border-radius: 8px; overflow: hidden;
+    border-radius: 8px;
+    overflow: hidden;
     border: 1px solid #E5E7EB !important;
+    background: #FFFFFF !important;
 }
 [data-testid="stDataFrame"] * {
     color: #111827 !important;
-    background: #FFFFFF !important;
 }
+[data-testid="stDataFrame"] th {
+    background: #F9FAFB !important;
+    color: #6B7280 !important;
+    font-weight: 600 !important;
+}
+[data-testid="stDataFrame"] td {
+    background: #FFFFFF !important;
+    color: #111827 !important;
+}
+[data-testid="stDataFrame"] canvas {
+    filter: invert(0) !important;
+}
+.dvn-scroller { background: #FFFFFF !important; }
+.dvn-scroller * { color: #111827 !important; }
+iframe[title="st_aggrid"] { background: #FFFFFF !important; }
 
 /* ── Status steps ── */
 .step-box {
