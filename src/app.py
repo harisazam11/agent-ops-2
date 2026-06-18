@@ -53,6 +53,23 @@ html, body, [class*="css"] {
     border-color: #334155 !important;
 }
 
+/* ── Spinner fix ── */
+[data-testid="stSpinner"] {
+    background: #FFFFFF !important;
+    border-radius: 8px !important;
+    padding: 0.5rem 1rem !important;
+    border: 1px solid #E5E7EB !important;
+}
+[data-testid="stSpinner"] * {
+    color: #374151 !important;
+}
+[data-testid="stSpinner"] > div {
+    background: #FFFFFF !important;
+}
+.stSpinner > div {
+    border-top-color: #2563EB !important;
+}
+
 /* ── Top bar ── */
 .top-bar {
     background: #FFFFFF;
@@ -188,8 +205,33 @@ html, body, [class*="css"] {
     color: #111827 !important;
     background: #FFFFFF !important;
 }
+
+/* ── Status steps ── */
+.step-box {
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    padding: 0.65rem 1rem;
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    color: #374151;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.step-box.running {
+    border-left: 3px solid #2563EB;
+    color: #1D4ED8;
+    background: #EFF6FF;
+}
+.step-box.done {
+    border-left: 3px solid #16A34A;
+    color: #166534;
+    background: #F0FDF4;
+}
 </style>
 """, unsafe_allow_html=True)
+
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 def _resolve_email(signal):
@@ -217,10 +259,12 @@ def _dedup_signals(signals):
             deduped.append(sig)
     return deduped
 
+
 # ── Session state ─────────────────────────────────────────────────────────────
 for k, v in [("sig_count", 0), ("pkr_saved", 0), ("act_count", 0)]:
     if k not in st.session_state:
         st.session_state[k] = v
+
 
 # ── Sidebar ───────────────────────────────────────────────────────────────────
 with st.sidebar:
@@ -236,7 +280,8 @@ with st.sidebar:
     st.metric("Employees", 4)
     st.metric("SaaS Tools", 8)
     st.divider()
-    st.markdown("<span style='color:#64748B;font-size:0.75rem'>Powered by Gemini 1.5 Flash</span>", unsafe_allow_html=True)
+    st.markdown("<span style='color:#64748B;font-size:0.75rem'>Powered by Groq · Llama 3.1</span>", unsafe_allow_html=True)
+
 
 # ── Top bar ───────────────────────────────────────────────────────────────────
 st.markdown("""
@@ -249,6 +294,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+
 # ── KPI cards ─────────────────────────────────────────────────────────────────
 kpi1, kpi2, kpi3 = st.columns(3)
 sig_ph  = kpi1.empty()
@@ -256,12 +302,16 @@ save_ph = kpi2.empty()
 act_ph  = kpi3.empty()
 
 def render_kpis(s, p, a):
-    sig_ph.markdown(f'<div class="kpi-card"><div class="kpi-label">Signals Detected</div><div class="kpi-val {"kpi-danger" if s > 0 else "kpi-neutral"}">{s}</div></div>', unsafe_allow_html=True)
-    save_ph.markdown(f'<div class="kpi-card"><div class="kpi-label">PKR Saved Monthly</div><div class="kpi-val {"kpi-success" if p > 0 else "kpi-neutral"}">₨{p:,}</div></div>', unsafe_allow_html=True)
-    act_ph.markdown(f'<div class="kpi-card"><div class="kpi-label">Actions Taken</div><div class="kpi-val {"kpi-info" if a > 0 else "kpi-neutral"}">{a}</div></div>', unsafe_allow_html=True)
+    sc = "kpi-danger"  if s > 0 else "kpi-neutral"
+    pc = "kpi-success" if p > 0 else "kpi-neutral"
+    ac = "kpi-info"    if a > 0 else "kpi-neutral"
+    sig_ph.markdown(f'<div class="kpi-card"><div class="kpi-label">Signals Detected</div><div class="kpi-val {sc}">{s}</div></div>', unsafe_allow_html=True)
+    save_ph.markdown(f'<div class="kpi-card"><div class="kpi-label">PKR Saved Monthly</div><div class="kpi-val {pc}">₨{p:,}</div></div>', unsafe_allow_html=True)
+    act_ph.markdown(f'<div class="kpi-card"><div class="kpi-label">Actions Taken</div><div class="kpi-val {ac}">{a}</div></div>', unsafe_allow_html=True)
 
 render_kpis(st.session_state.sig_count, st.session_state.pkr_saved, st.session_state.act_count)
 st.write("")
+
 
 # ── Scan + Reset ──────────────────────────────────────────────────────────────
 st.markdown('<div class="banner-info">ℹ️ &nbsp; Click <b>Scan</b> to analyse HR emails, detect offboarding signals, and execute security actions automatically.</div>', unsafe_allow_html=True)
@@ -280,21 +330,27 @@ if reset_clicked:
 
 st.divider()
 
+
 # ── Pipeline ──────────────────────────────────────────────────────────────────
 if scan_clicked:
     try:
-        with st.spinner("Connecting to email monitor..."):
-            emails = load_emails()
-        with st.spinner(f"Analysing {len(emails)} emails for HR signals..."):
-            signals = detect_signals(emails)
+        # Step indicators instead of spinners
+        st.markdown('<div class="step-box running">📬 &nbsp; Connecting to email monitor...</div>', unsafe_allow_html=True)
+        emails = load_emails()
+        st.markdown(f'<div class="step-box done">✓ &nbsp; Loaded {len(emails)} emails from inbox</div>', unsafe_allow_html=True)
 
+        st.markdown('<div class="step-box running">🔍 &nbsp; Analysing emails for HR signals...</div>', unsafe_allow_html=True)
+        signals = detect_signals(emails)
         signals = _dedup_signals(signals)
+        st.markdown(f'<div class="step-box done">✓ &nbsp; Analysis complete — {len(signals)} offboarding signal(s) detected</div>', unsafe_allow_html=True)
+
         st.session_state.sig_count = len(signals)
         render_kpis(len(signals), st.session_state.pkr_saved, st.session_state.act_count)
 
         if not signals:
             st.markdown('<div class="banner-ok">✅ &nbsp; No offboarding signals detected. All employees are active.</div>', unsafe_allow_html=True)
         else:
+            st.write("")
             for sig in signals:
                 st.markdown(f'<div class="banner-alert">🚨 &nbsp; Offboarding detected — <b>{sig["employee_name"]}</b> &nbsp;·&nbsp; {_resolve_email(sig)}</div>', unsafe_allow_html=True)
 
@@ -307,9 +363,11 @@ if scan_clicked:
 
                 st.markdown(f'<div class="sec-head">👤 Processing: {name}</div>', unsafe_allow_html=True)
 
+                # Map access
                 try:
-                    with st.spinner(f"Mapping SaaS access for {name}..."):
-                        access = map_access(email)
+                    st.markdown(f'<div class="step-box running">🗺️ &nbsp; Mapping SaaS access for {name}...</div>', unsafe_allow_html=True)
+                    access = map_access(email)
+                    st.markdown(f'<div class="step-box done">✓ &nbsp; {len(access["tools"])} tools mapped — ₨{access["total_monthly_cost_pkr"]:,} at risk</div>', unsafe_allow_html=True)
                 except Exception as e:
                     st.error(f"Could not map access for {name}: {e}")
                     continue
@@ -322,9 +380,11 @@ if scan_clicked:
                     st.dataframe(risk_df, use_container_width=True, hide_index=True)
                     st.markdown(f"**Total exposure: ₨ {access['total_monthly_cost_pkr']:,} / month**")
 
+                # Execute actions
                 try:
-                    with st.spinner(f"Revoking access and cancelling licenses for {name}..."):
-                        actions = execute_actions(access)
+                    st.markdown(f'<div class="step-box running">⚡ &nbsp; Revoking access and cancelling licenses for {name}...</div>', unsafe_allow_html=True)
+                    actions = execute_actions(access)
+                    st.markdown(f'<div class="step-box done">✓ &nbsp; {len(actions["actions_taken"])} actions executed — ₨{actions["total_saved_pkr"]:,}/month saved</div>', unsafe_allow_html=True)
                 except Exception as e:
                     st.error(f"Could not execute actions for {name}: {e}")
                     continue
@@ -344,21 +404,25 @@ if scan_clicked:
                 total_saved += actions["total_saved_pkr"]
                 total_acts  += len(actions["actions_taken"])
 
+                # Audit report
                 try:
-                    with st.spinner("Generating compliance audit report..."):
-                        report = generate_report(sig, access, actions)
-                        os.makedirs(REPORTS_DIR, exist_ok=True)
-                        rpath = os.path.join(REPORTS_DIR, f"{name.replace(' ','_')}_audit_report.txt")
-                        with open(rpath, "w", encoding="utf-8") as f:
-                            f.write(report)
+                    st.markdown('<div class="step-box running">📄 &nbsp; Generating compliance audit report...</div>', unsafe_allow_html=True)
+                    report = generate_report(sig, access, actions)
+                    os.makedirs(REPORTS_DIR, exist_ok=True)
+                    rpath = os.path.join(REPORTS_DIR, f"{name.replace(' ','_')}_audit_report.txt")
+                    with open(rpath, "w", encoding="utf-8") as f:
+                        f.write(report)
+                    st.markdown('<div class="step-box done">✓ &nbsp; Audit report generated and saved</div>', unsafe_allow_html=True)
                     with st.expander("📄  Compliance Audit Report", expanded=False):
                         st.code(report, language=None)
                 except Exception as e:
                     st.error(f"Audit report failed for {name}: {e}")
 
+                # Stakeholder emails
                 try:
-                    with st.spinner("Drafting stakeholder notifications..."):
-                        s_emails = generate_stakeholder_emails(sig, actions)
+                    st.markdown('<div class="step-box running">📧 &nbsp; Drafting stakeholder notifications...</div>', unsafe_allow_html=True)
+                    s_emails = generate_stakeholder_emails(sig, actions)
+                    st.markdown('<div class="step-box done">✓ &nbsp; Notifications drafted for IT, Finance and HR teams</div>', unsafe_allow_html=True)
                     with st.expander("📧  Stakeholder Notifications", expanded=False):
                         t1, t2, t3 = st.tabs(["IT Team", "Finance Team", "HR Team"])
                         with t1: st.code(s_emails["it_email"], language=None)
@@ -369,10 +433,12 @@ if scan_clicked:
 
                 st.divider()
 
+            # Update KPIs
             st.session_state.pkr_saved += total_saved
             st.session_state.act_count += total_acts
             render_kpis(len(signals), st.session_state.pkr_saved, st.session_state.act_count)
 
+            # Final summary
             st.markdown(f"""
             <div class="sum-grid">
               <div class="sum-box">
@@ -392,7 +458,8 @@ if scan_clicked:
             """, unsafe_allow_html=True)
 
     except Exception as e:
-        st.error(f"Pipeline failed: {e}. Check that your GEMINI_API_KEY is set and mock_emails.json exists.")
+        st.error(f"Pipeline failed: {e}. Check that your GROQ_API_KEY is set in Streamlit secrets.")
+
 
 # ── Employee Registry ─────────────────────────────────────────────────────────
 st.markdown('<div class="sec-head" style="margin-top:1.5rem">👥 Active Employee Registry</div>', unsafe_allow_html=True)
@@ -413,4 +480,4 @@ except Exception as e:
     st.error(f"Could not load registry: {e}")
 
 st.markdown("<br>", unsafe_allow_html=True)
-st.caption("OpsAgent · Gemini 1.5 Flash · TechHub Pvt Ltd · Hackathon 2026")
+st.caption("OpsAgent · Groq Llama 3.1 · TechHub Pvt Ltd · Hackathon 2026")
