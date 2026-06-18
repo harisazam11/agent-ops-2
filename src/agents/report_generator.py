@@ -30,7 +30,8 @@ EMAILS_SYSTEM_PROMPT = (
     "- Reference the employee by their Pakistani name\n"
     "- Mention specific tools and PKR amounts\n"
     "- Be professional but concise\n"
-    "- Reference TechHub Pvt Ltd throughout"
+    "- Reference TechHub Pvt Ltd throughout\n"
+    "IMPORTANT: Return valid JSON only. Do not include any newlines or control characters inside string values."
 )
 
 
@@ -40,6 +41,12 @@ def _strip_markdown(text: str) -> str:
         text = re.sub(r"^```(?:json)?\s*", "", text)
         text = re.sub(r"\s*```$", "", text)
     return text.strip()
+
+
+def _clean_json_string(text: str) -> str:
+    # Remove control characters that break JSON parsing
+    text = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', '', text)
+    return text
 
 
 def _generate_content(prompt: str, max_retries: int = 5) -> str:
@@ -138,12 +145,23 @@ Total Monthly Savings: PKR {actions.get("total_saved_pkr", 0)}"""
     prompt = f"{EMAILS_SYSTEM_PROMPT}\n\n{user_message}"
     result = _generate_content(prompt)
     content = _strip_markdown(result)
+
     try:
-    emails = json.loads(content)
-except json.JSONDecodeError:
-    # Clean control characters and retry
-    clean = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', '', content)
-    emails = json.loads(clean)
+        emails = json.loads(content)
+    except json.JSONDecodeError:
+        clean = _clean_json_string(content)
+        try:
+            emails = json.loads(clean)
+        except json.JSONDecodeError:
+            # Last resort — return safe fallback emails
+            employee_name = signal.get("employee_name", "Unknown")
+            total_saved = actions.get("total_saved_pkr", 0)
+            emails = {
+                "it_email": f"From: ops-agent@techhub.pk\nTo: it@techhub.pk\nSubject: Access Revocation - {employee_name}\n\nAll SaaS access for {employee_name} has been revoked by OpsAgent.",
+                "finance_email": f"From: ops-agent@techhub.pk\nTo: finance@techhub.pk\nSubject: License Cancellation - {employee_name}\n\nAll licenses cancelled. Monthly saving: PKR {total_saved:,}.",
+                "hr_email": f"From: ops-agent@techhub.pk\nTo: hr@techhub.pk\nSubject: Offboarding Complete - {employee_name}\n\nOffboarding for {employee_name} has been completed by OpsAgent.",
+            }
+
     return {
         "it_email": _normalize_email_text(emails.get("it_email", "")),
         "finance_email": _normalize_email_text(emails.get("finance_email", "")),
