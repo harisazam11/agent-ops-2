@@ -2,31 +2,31 @@
   {
     "id": "001",
     "subject": "Ahmed Raza's Last Day - This Friday",
-    "from": "hr@techhub.pk",
-    "body": "Hi team, Ahmed Raza will be leaving TechHub Pvt Ltd. His last working day is this Friday. Please ensure all system access is revoked."
+    "from": "hr@sharktank.pk",
+    "body": "Hi team, Ahmed Raza will be leaving SharkTank Pvt Ltd. His last working day is this Friday. Please ensure all system access is revoked."
   },
   {
     "id": "002",
     "subject": "Farewell Sara Khan",
-    "from": "manager@techhub.pk",
+    "from": "manager@sharktank.pk",
     "body": "Dear all, Sara Khan has resigned and today is her last day. IT please revoke all access immediately."
   },
   {
     "id": "003",
     "subject": "Team Lunch Tomorrow",
-    "from": "admin@techhub.pk",
+    "from": "admin@sharktank.pk",
     "body": "Hi everyone, team lunch is scheduled for tomorrow at 1pm. Please confirm attendance."
   },
   {
     "id": "004",
     "subject": "Q3 Planning Meeting",
-    "from": "ceo@techhub.pk",
+    "from": "ceo@sharktank.pk",
     "body": "Please join us for the Q3 planning meeting on Monday at 10am."
   },
   {
     "id": "005",
     "subject": "Office Holiday Notice",
-    "from": "admin@techhub.pk",
+    "from": "admin@sharktank.pk",
     "body": "Office will remain closed on Friday for the public holiday."
   }
 ]
