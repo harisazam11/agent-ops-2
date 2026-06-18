@@ -177,9 +177,23 @@ html, body, [class*="css"] {
     background: #FFFFFF !important;
     margin-bottom: 0.5rem !important;
 }
+[data-testid="stExpander"] > div {
+    background: #FFFFFF !important;
+}
+[data-testid="stExpander"] details {
+    background: #FFFFFF !important;
+}
 [data-testid="stExpander"] summary {
     color: #111827 !important;
     font-weight: 600 !important;
+    background: #FFFFFF !important;
+}
+[data-testid="stExpander"] summary:hover {
+    background: #F9FAFB !important;
+}
+div[data-testid="stExpander"] div[role="button"] {
+    background: #FFFFFF !important;
+    color: #111827 !important;
 }
 
 /* ── Tabs ── */
