@@ -402,14 +402,12 @@ if scan_clicked:
                     st.error(f"Could not map access for {name}: {e}")
                     continue
 
-                with st.expander(f"🔧  {len(access['tools'])} tools at risk — {name}", expanded=True):
-                    risk_df = pd.DataFrame([
-                        {"Tool": d["tool_name"], "Monthly Cost": f"₨ {d['monthly_cost_pkr']:,}", "Status": "⚠️ Active"}
-                        for d in access["tool_details"]
-                    ])
-                    st.table(risk_df)
-                    st.markdown(f"**Total exposure: ₨ {access['total_monthly_cost_pkr']:,} / month**")
+              with st.expander(f"🔧  {len(access['tools'])} tools at risk — {name}", expanded=True):
+    for d in access["tool_details"]:
+        st.markdown(f"🔴 **{d['tool_name']}** — ₨ {d['monthly_cost_pkr']:,}/month — ⚠️ Active")
+    st.markdown(f"---\n**Total exposure: ₨ {access['total_monthly_cost_pkr']:,} / month**")
 
+    
                 # Execute actions
                 try:
                     st.markdown(f'<div class="step-box running">⚡ &nbsp; Revoking access and cancelling licenses for {name}...</div>', unsafe_allow_html=True)
@@ -419,17 +417,11 @@ if scan_clicked:
                     st.error(f"Could not execute actions for {name}: {e}")
                     continue
 
-                with st.expander(f"✅  {len(actions['actions_taken'])} actions completed — {name}", expanded=False):
-                    done_df = pd.DataFrame([
-                        {
-                            "Tool": a["tool"],
-                            "Action": "Access revoked · License cancelled",
-                            "Saving / Month": f"₨ {a['monthly_saving_pkr']:,}"
-                        }
-                        for a in actions["actions_taken"]
-                    ])
-                    st.table(done_df)
-                    st.markdown(f"**Total saved: ₨ {actions['total_saved_pkr']:,} / month**")
+               with st.expander(f"✅  {len(actions['actions_taken'])} actions completed — {name}", expanded=False):
+    for a in actions["actions_taken"]:
+        st.markdown(f"✅ **{a['tool']}** — Access revoked · License cancelled — saving ₨ {a['monthly_saving_pkr']:,}/month")
+    st.markdown(f"---\n**Total saved: ₨ {actions['total_saved_pkr']:,} / month**")
+
 
                 total_saved += actions["total_saved_pkr"]
                 total_acts  += len(actions["actions_taken"])
@@ -505,7 +497,8 @@ try:
             "Tools": ", ".join(tools),
             "Monthly Cost": f"₨ {cost:,}",
         })
-    st.table(rows)
+    for row in rows:
+    st.markdown(f"👤 **{row['Name']}** &nbsp;·&nbsp; {row['Email']} &nbsp;·&nbsp; {row['Tools']} &nbsp;·&nbsp; {row['Monthly Cost']}")
 except Exception as e:
     st.error(f"Could not load registry: {e}")
 
