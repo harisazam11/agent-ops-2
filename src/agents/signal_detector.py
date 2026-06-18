@@ -12,8 +12,8 @@ client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 # Change this to switch scenarios:
-# DATA_FILE = Path(__file__).resolve().parent.parent / "data" / "mock_emails.json"
-DATA_FILE = Path(__file__).resolve().parent.parent / "data" / "mock_emails_scenario2.json"
+DATA_FILE = Path(__file__).resolve().parent.parent / "data" / "mock_emails.json"
+# DATA_FILE = Path(__file__).resolve().parent.parent / "data" / "mock_emails_scenario2.json"
 
 SYSTEM_PROMPT = (
     "You are an HR signal detector for a Pakistani tech company called TechHub Pvt Ltd. "
