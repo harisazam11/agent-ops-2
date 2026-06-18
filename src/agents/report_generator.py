@@ -138,7 +138,12 @@ Total Monthly Savings: PKR {actions.get("total_saved_pkr", 0)}"""
     prompt = f"{EMAILS_SYSTEM_PROMPT}\n\n{user_message}"
     result = _generate_content(prompt)
     content = _strip_markdown(result)
+    try:
     emails = json.loads(content)
+except json.JSONDecodeError:
+    # Clean control characters and retry
+    clean = re.sub(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', '', content)
+    emails = json.loads(clean)
     return {
         "it_email": _normalize_email_text(emails.get("it_email", "")),
         "finance_email": _normalize_email_text(emails.get("finance_email", "")),
