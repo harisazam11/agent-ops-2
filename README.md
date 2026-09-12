@@ -101,7 +101,3 @@ curl -X POST http://127.0.0.1:8000/api/map-access \
 
 - The employee registry, SaaS cost table, and tool-usage data are currently mocked in `server.py` for demonstration purposes. Replace these with real data sources (an HRIS, an identity provider, or a usage-analytics API) for production use.
 - LLM-dependent endpoints (`/api/scan`, `/api/generate-report`, `/api/stakeholder-emails`) include a fallback path in case the Groq API call fails, so the agent degrades gracefully rather than erroring out.
-
-## License
-
-No license file is currently included in this repository. Add a `LICENSE` file to clarify usage terms for other contributors.
